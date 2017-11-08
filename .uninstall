@@ -1,0 +1,7 @@
+MAJOR="120"
+BIN_DIR="/usr/bin"
+MAN_DIR="/usr/share/man/man1"
+MODULE_DIR="/lib/modules/4.13.0-16-generic/kernel/drivers/char"
+MODULE_NAME="cw"
+MODULES_CONF="/etc/modprobe.d"
+UDEV_STATIC_DEVICES="/etc/udev/static_devices.txt"

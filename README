@@ -1,3 +1,11 @@
+  ===============
+  [0] UPDATE NOTE
+  ===============
+
+This driver wouldn't compile on Ubuntu 17.10. Getting it to work was just a
+couple of small changes in src/drivers/floppy.c. Below is the original readme.
+                                                                         -mikeri
+
 Author:   Karsten Scheibler
 Homepage: http://unusedino.de/cw/
 eMail:    cw@unusedino.de
