@@ -178,8 +178,7 @@ modify_modprobe_d()
 		mv "$MODULES_CONF/catweasel" "$MODULES_CONF/catweasel.conf"
 	fi
 	if [ -e "$MODULES_CONF/catweasel.conf" ]; then
-		echo "file '$MODULES_CONF/catweasel.conf' already exists" 1>&2
-		exit 1
+		echo "file '$MODULES_CONF/catweasel.conf' already exists, skipping"
 	fi
 	echo "adding entries to '$MODULES_CONF/catweasel.conf'"
 	{

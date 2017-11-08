@@ -20,6 +20,7 @@
 #include <linux/spinlock.h>
 #include <linux/version.h>
 #include <linux/vmalloc.h>
+#include <linux/uaccess.h>
 #include <linux/wait.h>
 
 #include "floppy.h"
@@ -72,7 +73,7 @@ cw_floppy_lock(
 	int				nonblock)
 
 	{
-	wait_queue_t			w;
+	wait_queue_entry_t			w;
 	unsigned long			flags;
 	int				result = 1;
 
@@ -816,7 +817,7 @@ cw_floppy_read_track(
 	result = cw_floppy_lock_floppy(flp, nonblock);
 	if (result < 0) return (result);
 	result = cw_floppy_read_write_track(flp, tri, nonblock, 0);
-	if ((result > 0) && (copy_to_user(tri->data, flp->track_data, result) != 0)) result = -EFAULT;
+	if ((result > 0) && (raw_copy_to_user(tri->data, flp->track_data, result) != 0)) result = -EFAULT;
 	cw_floppy_unlock_floppy(flp);
 	return (result);
 	}
@@ -962,7 +963,7 @@ cw_floppy_char_unlocked_ioctl(
 
 		result = -EFAULT;
 		if (copy_from_user(&fli, (void *) arg, sizeof (struct cw_floppyinfo)) == 0) result = cw_floppy_get_parameters(flp, &fli, nonblock);
-		if ((result == 0) && (copy_to_user((void *) arg, &fli, sizeof (struct cw_floppyinfo)) != 0)) result = -EFAULT;
+		if ((result == 0) && (raw_copy_to_user((void *) arg, &fli, sizeof (struct cw_floppyinfo)) != 0)) result = -EFAULT;
 		}
 	else if (cmd == CW_IOC_SFLPARM)
 		{
